@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spesial Untuk Sayang 💕 | Guntur For Dilaa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+            overflow-x: hidden;
+        }
+        .font-romantis {
+            font-family: 'Caveat', cursive;
+        }
+        /* Efek mengambang romantis */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        .floating-delayed {
+            animation: float 5s ease-in-out infinite;
+            animation-delay: 1.5s;
+        }
+        /* Custom scrollbar pink */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffe5ec;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff8fab;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-between text-slate-700 antialiased">
+
+    <!-- Efek Partikel Kelopak Bunga / Hati Latar Belakang -->
+    <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+    <!-- Tombol Musik & Info -->
+    <div class="fixed top-4 right-4 z-40 flex gap-2">
+        <button id="musicBtn" onclick="toggleMusic()" class="bg-white/80 backdrop-blur text-pink-500 p-3 rounded-full shadow-lg hover:bg-pink-100 transition duration-300 focus:outline-none">
+            <i id="musicIcon" class="fas fa-music"></i>
+        </button>
+    </div>
+
+    <!-- HEADER / LOGO DENGAN WATERMARK GUNTUR FOR DILAA -->
+    <header class="w-full text-center py-6 px-4 z-10">
+        <div class="flex flex-col items-center gap-1">
+            <div class="inline-flex items-center gap-2 bg-white/60 backdrop-blur px-6 py-2 rounded-full shadow-sm border border-pink-100">
+                <span class="text-pink-500 animate-pulse text-xl">💖</span>
+                <span class="font-extrabold text-pink-600 tracking-wider text-sm md:text-base">UNTUK PACARKU YANG PALING GEMAS</span>
+                <span class="text-pink-500 animate-pulse text-xl">💖</span>
+            </div>
+            <!-- Watermark Header -->
+            <span class="text-xs font-semibold text-pink-500 tracking-widest bg-white/40 px-3 py-1 rounded-full border border-pink-50/50 mt-2">
+                ✨ Guntur For Dilaa ✨
+            </span>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER GAME -->
+    <main class="w-full max-w-md px-4 flex-grow flex flex-col justify-center z-10 py-4">
+        
+        <!-- LAYOUT 1: START SCREEN -->
+        <div id="screen-start" class="bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-2xl border-4 border-pink-200 text-center relative overflow-hidden transition-all duration-500">
+            <div class="absolute -top-10 -left-10 w-24 h-24 bg-pink-100 rounded-full opacity-50"></div>
+            <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-pink-100 rounded-full opacity-50"></div>
+            
+            <div class="relative">
+                <div class="text-6xl my-4 floating">🥰</div>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-pink-600 mb-2">Hai Dilaa Sayang!</h1>
+                <p class="text-gray-600 text-sm md:text-base mb-6 leading-relaxed">
+                    Aku punya petualangan kecil dan spesial khusus buat kamu hari ini. Selesaikan tantangannya dan dapatkan hadiah kejutan romantis dariku!
+                </p>
+                
+                <div class="bg-pink-50 rounded-2xl p-4 mb-6 text-left border border-pink-100">
+                    <h3 class="font-bold text-pink-700 text-sm mb-2"><i class="fas fa-heart mr-1"></i> Cara Bermain:</h3>
+                    <ul class="text-xs md:text-sm text-gray-600 space-y-2">
+                        <li>🎈 <b>Level 1:</b> Pecahkan balon cinta untuk kumpulkan kata manis.</li>
+                        <li>🧩 <b>Level 2:</b> Cocokkan ingatan & gambar cinta kita.</li>
+                        <li>🧺 <b>Level 3:</b> Tangkap cinta berjatuhan di keranjangmu.</li>
+                    </ul>
+                </div>
+
+                <button onclick="startGame()" class="w-full bg-gradient-to-r from-pink-500 to-rose-400 text-white font-extrabold py-4 px-6 rounded-2xl shadow-lg hover:from-pink-600 hover:to-rose-500 transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 text-lg tracking-wide flex items-center justify-center gap-2">
+                    Mulai Petualangan Kita <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <!-- Watermark di bagian bawah start screen -->
+                <p class="text-[10px] text-pink-400 mt-4 font-semibold tracking-wider italic">Dibuat khusus penuh cinta: Guntur For Dilaa</p>
+            </div>
+        </div>
+
+        <!-- LAYOUT 2: GAME 1 - COMPLIMENT POPPER -->
+        <div id="screen-game1" class="hidden bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-2xl border-4 border-pink-200 text-center relative transition-all duration-500">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold text-pink-500 uppercase tracking-widest bg-pink-50 px-3 py-1 rounded-full">Level 1: Balon Cinta</span>
+                <span class="text-sm font-bold text-slate-600">Skor: <span id="g1-score" class="text-pink-600 text-lg">0</span>/5</span>
+            </div>
+            
+            <h2 class="text-lg font-bold text-slate-700 mb-2">Pecahkan Balon Pink/Hati! 🎈</h2>
+            <p class="text-xs text-gray-500 mb-4">Hindari balon berduri (hitam) agar skor tidak berkurang!</p>
+
+            <!-- Area Balon Melayang -->
+            <div id="balloon-area" class="relative w-full h-80 bg-gradient-to-b from-sky-50 to-pink-50 rounded-2xl overflow-hidden border border-pink-100 shadow-inner cursor-pointer">
+                <!-- Watermark tipis di dalam area gameplay -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 select-none">
+                    <span class="text-2xl font-bold tracking-widest text-pink-500 font-romantis">Guntur For Dilaa</span>
+                </div>
+            </div>
+
+            <!-- Pesan Gombal yang Muncul setelah pecah -->
+            <div id="g1-message" class="mt-4 h-12 flex items-center justify-center text-sm font-bold text-pink-600 italic px-2">
+                "Pecahkan balon untuk melihat isi pesanku..."
+            </div>
+        </div>
+
+        <!-- LAYOUT 3: GAME 2 - MEMORY MATCH -->
+        <div id="screen-game2" class="hidden bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-2xl border-4 border-pink-200 text-center relative transition-all duration-500">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold text-pink-500 uppercase tracking-widest bg-pink-50 px-3 py-1 rounded-full">Level 2: Memori Kasih</span>
+                <span class="text-sm font-bold text-slate-600">Pasangan: <span id="g2-match" class="text-pink-600 text-lg">0</span>/6</span>
+            </div>
+            
+            <h2 class="text-lg font-bold text-slate-700 mb-1">Pasangkan Kartu Kembar! 🧩</h2>
+            <p class="text-xs text-gray-500 mb-4">Cari dua kartu bergambar sama yang mendeskripsikan kita!</p>
+
+            <!-- Grid Kartu -->
+            <div class="relative py-2">
+                <div id="memory-grid" class="grid grid-cols-4 gap-2 max-w-sm mx-auto relative z-10">
+                    <!-- Kartu di-generate via JS -->
+                </div>
+                <!-- Watermark tipis di belakang grid -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 select-none">
+                    <span class="text-3xl font-bold tracking-widest text-pink-500 font-romantis">Guntur For Dilaa</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LAYOUT 4: GAME 3 - HEART CATCHER -->
+        <div id="screen-game3" class="hidden bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-2xl border-4 border-pink-200 text-center relative transition-all duration-500">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold text-pink-500 uppercase tracking-widest bg-pink-50 px-3 py-1 rounded-full">Level 3: Tangkap Hati</span>
+                <span class="text-sm font-bold text-slate-600">Poin: <span id="g3-score" class="text-pink-600 text-lg">0</span>/15</span>
+            </div>
+            
+            <h2 class="text-lg font-bold text-slate-700 mb-1">Tangkap Hati Berjatuhan! 🧺</h2>
+            <p class="text-xs text-gray-500 mb-4">Geser keranjang ke kanan/kiri (gunakan jari/mouse) untuk menangkap hati pink!</p>
+
+            <!-- Area Tangkap Hati -->
+            <div id="catcher-area" class="relative w-full h-80 bg-gradient-to-b from-pink-50 to-pink-100 rounded-2xl overflow-hidden border border-pink-100 shadow-inner">
+                <!-- Watermark tipis di dalam area tangkap hati -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 select-none">
+                    <span class="text-2xl font-bold tracking-widest text-pink-500 font-romantis">Guntur For Dilaa</span>
+                </div>
+                <!-- Keranjang -->
+                <div id="basket" class="absolute bottom-2 left-1/2 -translate-x-1/2 w-16 h-12 bg-amber-700 rounded-b-xl border-t-4 border-amber-950 flex items-center justify-center text-xl shadow-md transition-all duration-75">
+                    🧺
+                </div>
+                <!-- Controls untuk mobile tap -->
+                <div class="absolute inset-x-0 bottom-0 h-2/3 flex justify-between opacity-0 pointer-events-auto">
+                    <div id="control-left" class="w-1/2 h-full cursor-pointer"></div>
+                    <div id="control-right" class="w-1/2 h-full cursor-pointer"></div>
+                </div>
+            </div>
+            <p class="text-[10px] text-gray-400 mt-2">Ketuk sisi kanan/kiri layar atau geser jari untuk menggerakkan keranjang.</p>
+        </div>
+
+        <!-- LAYOUT 5: REWARD SCREEN / SURAT CINTA -->
+        <div id="screen-reward" class="hidden bg-white/95 backdrop-blur-md rounded-3xl p-6 shadow-2xl border-4 border-pink-300 relative transition-all duration-700 transform scale-95 opacity-0">
+            <div class="text-center">
+                <div class="text-5xl mb-2 animate-bounce">🏆🎉</div>
+                <h1 class="text-2xl font-extrabold text-pink-600">Kamu Hebat Dilaa Sayang!</h1>
+                <p class="text-xs text-gray-500 mb-4">Semua tantangan selesai! Ini hadiah spesial buatmu:</p>
+            </div>
+
+            <!-- Tab Menu Hadiah -->
+            <div class="flex border-b border-pink-100 mb-4">
+                <button onclick="switchTab('tab-surat')" id="btn-tab-surat" class="flex-1 py-2 text-sm font-bold border-b-2 border-pink-500 text-pink-600 focus:outline-none">
+                    💌 Surat Cinta
+                </button>
+                <button onclick="switchTab('tab-kupon')" id="btn-tab-kupon" class="flex-1 py-2 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-pink-500 focus:outline-none">
+                    🎫 Kupon Manja
+                </button>
+            </div>
+
+            <!-- Konten Tab 1: Surat Cinta -->
+            <div id="tab-surat" class="space-y-3 transition-all duration-300">
+                <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 shadow-inner max-h-72 overflow-y-auto font-romantis text-lg md:text-xl text-amber-900 leading-relaxed relative">
+                    <!-- Watermark Latar Belakang Surat -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04] select-none">
+                        <span class="text-4xl font-bold tracking-widest text-pink-700">Guntur For Dilaa</span>
+                    </div>
+                    <div class="relative z-10">
+                        <p class="mb-3">Halo cintaku Dilaa, pemilik senyum paling manis di dunia... ❤️</p>
+                        <p class="mb-3">Makasih ya udah mau mainin game kecil buatan aku ini. Aku cuma mau bilang kalau aku beruntung banget bisa punya kamu.</p>
+                        <p class="mb-3">Setiap hari bersamamu itu rasanya kayak dapet hadiah terindah. Aku suka semua hal tentang kamu: cerewetnya kamu, ketawanya kamu, dan cara kamu bikin hari-hariku jadi jauh lebih cerah.</p>
+                        <p class="mb-3">Semoga game sederhana ini bisa bikin kamu tersenyum hari ini ya sayang. Aku sayang banget sama kamu, hari ini, besok, dan seterusnya! 👩‍❤️‍👨✨</p>
+                        <p class="text-right font-bold mt-4">- Pacarmu yang Paling Sayang Kamu, Guntur 😘</p>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <p class="text-[11px] text-pink-400 animate-pulse font-semibold">"Buka tab Kupon Manja di atas untuk ambil hadiah fisik dariku!"</p>
+                </div>
+            </div>
+
+            <!-- Konten Tab 2: Kupon Manja -->
+            <div id="tab-kupon" class="hidden space-y-3 transition-all duration-300">
+                <p class="text-xs text-center text-gray-500">Silakan tangkap layar (screenshot) kupon ini dan kirim ke Guntur untuk diklaim kapan saja! 😉</p>
+                <div class="space-y-3 max-h-72 overflow-y-auto pr-1">
+                    
+                    <!-- Kupon 1 -->
+                    <div class="bg-gradient-to-r from-pink-400 to-rose-400 text-white rounded-2xl p-4 shadow-md flex items-center justify-between border-2 border-dashed border-white/50 relative overflow-hidden">
+                        <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full"></div>
+                        <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full"></div>
+                        <div class="pl-4">
+                            <h4 class="font-extrabold text-sm tracking-wide">🎟️ KUPON PELUKAN ERAT</h4>
+                            <p class="text-[10px] text-pink-100">Dapatkan pelukan hangat tanpa batas durasi.</p>
+                            <span class="text-[8px] tracking-wider text-white/75 block mt-1">Guntur For Dilaa</span>
+                        </div>
+                        <span class="text-xs font-black bg-white text-pink-500 px-3 py-1 rounded-full shadow-sm whitespace-nowrap mr-2">1x Klaim</span>
+                    </div>
+
+                    <!-- Kupon 2 -->
+                    <div class="bg-gradient-to-r from-purple-400 to-pink-400 text-white rounded-2xl p-4 shadow-md flex items-center justify-between border-2 border-dashed border-white/50 relative overflow-hidden">
+                        <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full"></div>
+                        <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full"></div>
+                        <div class="pl-4">
+                            <h4 class="font-extrabold text-sm tracking-wide">🍿 KUPON NONTON & JAJAN</h4>
+                            <p class="text-[10px] text-purple-100">Bebas pilih film & jajan diongkosin aku!</p>
+                            <span class="text-[8px] tracking-wider text-white/75 block mt-1">Guntur For Dilaa</span>
+                        </div>
+                        <span class="text-xs font-black bg-white text-purple-500 px-3 py-1 rounded-full shadow-sm whitespace-nowrap mr-2">1x Klaim</span>
+                    </div>
+
+                    <!-- Kupon 3 -->
+                    <div class="bg-gradient-to-r from-teal-400 to-emerald-400 text-white rounded-2xl p-4 shadow-md flex items-center justify-between border-2 border-dashed border-white/50 relative overflow-hidden">
+                        <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full"></div>
+                        <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full"></div>
+                        <div class="pl-4">
+                            <h4 class="font-extrabold text-sm tracking-wide">🍦 KUPON MAKAN ES KRIM</h4>
+                            <p class="text-[10px] text-teal-100">Kapanpun kamu sedih/butuh yang manis.</p>
+                            <span class="text-[8px] tracking-wider text-white/75 block mt-1">Guntur For Dilaa</span>
+                        </div>
+                        <span class="text-xs font-black bg-white text-teal-500 px-3 py-1 rounded-full shadow-sm whitespace-nowrap mr-2">Bebas</span>
+                    </div>
+
+                    <!-- Kupon 4 -->
+                    <div class="bg-gradient-to-r from-amber-400 to-orange-400 text-white rounded-2xl p-4 shadow-md flex items-center justify-between border-2 border-dashed border-white/50 relative overflow-hidden">
+                        <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full"></div>
+                        <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full"></div>
+                        <div class="pl-4">
+                            <h4 class="font-extrabold text-sm tracking-wide">💆‍♂️ KUPON PIJAT MANJA</h4>
+                            <p class="text-[10px] text-amber-100">Pijatan lembut di bahu/kepala saat capek.</p>
+                            <span class="text-[8px] tracking-wider text-white/75 block mt-1">Guntur For Dilaa</span>
+                        </div>
+                        <span class="text-xs font-black bg-white text-amber-500 px-3 py-1 rounded-full shadow-sm whitespace-nowrap mr-2">1x Klaim</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Tombol Main Lagi -->
+            <button onclick="restartGame()" class="mt-5 w-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3 px-4 rounded-xl transition duration-300 text-sm flex items-center justify-center gap-2">
+                <i class="fas fa-undo"></i> Mainkan Lagi
+            </button>
+        </div>
+
+    </main>
+
+    <!-- FOOTER DENGAN WATERMARK ROMANTIS GUNTUR FOR DILAA -->
+    <footer class="w-full text-center py-4 text-xs text-pink-600 font-medium z-10 flex flex-col gap-1">
+        <span>Dibuat dengan sepenuh hati dan cinta ❤️</span>
+        <span class="text-[10px] font-bold tracking-wider text-pink-500/80">💝 Guntur For Dilaa 💝</span>
+    </footer>
+
+    <!-- MODAL POPUP TRANSISI / NOTIFIKASI CUSTOM -->
+    <div id="custom-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center px-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-6 max-w-xs w-full text-center shadow-2xl border-4 border-pink-200 transform scale-95 transition-transform duration-300">
+            <div id="modal-emoji" class="text-5xl mb-3">💖</div>
+            <h3 id="modal-title" class="text-xl font-extrabold text-pink-600 mb-2">Hebat Banget!</h3>
+            <p id="modal-text" class="text-sm text-gray-600 mb-5">Kamu berhasil menyelesaikan tantangannya!</p>
+            <button id="modal-btn" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 rounded-xl shadow-md transition duration-300">
+                Lanjut Kenalan
+            </button>
+        </div>
+    </div>
+
+    <!-- AUDIO SYNTHESIZER SCRIPT -->
+    <script>
+        // Web Audio API Synth
+        let audioCtx = null;
+        let isMusicPlaying = false;
+        let musicInterval = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(freq, type, duration) {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type || 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                console.log("Audio play blocked/error", e);
+            }
+        }
+
+        // Efek Suara Pecah Balon
+        function soundPop() { playSound(600, 'sine', 0.15); }
+        // Efek Suara Salah / Durian
+        function soundError() { playSound(150, 'triangle', 0.3); }
+        // Efek Suara Kartu Terbuka
+        function soundFlip() { playSound(440, 'sine', 0.08); }
+        // Efek Suara Berhasil Match
+        function soundMatch() { 
+            playSound(523.25, 'sine', 0.1); // C5
+            setTimeout(() => playSound(659.25, 'sine', 0.1), 80); // E5
+            setTimeout(() => playSound(783.99, 'sine', 0.15), 160); // G5
+        }
+        // Efek Suara Tangkap Poin
+        function soundCatch() { playSound(880, 'sine', 0.1); }
+        // Efek Suara Naik Level
+        function soundLevelUp() {
+            const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880, 987.77, 1046.50];
+            notes.forEach((note, index) => {
+                setTimeout(() => playSound(note, 'sine', 0.2), index * 80);
+            });
+        }
+
+        // Melodi Latar Belakang Romantis Sederhana (Arpeggio lambat lembut)
+        const romanticMelody = [
+            329.63, 392.00, 523.25, 659.25, // C Major 7th feel (E4, G4, C5, E5)
+            349.23, 440.00, 523.25, 698.46, // F Major (F4, A4, C5, F5)
+            392.00, 493.88, 587.33, 783.99, // G Major (G4, B4, D5, G5)
+            329.63, 392.00, 493.88, 587.33  // Em7 (E4, G4, B4, D5)
+        ];
+
+        function playMelodyStep(step) {
+            if (!isMusicPlaying) return;
+            const note = romanticMelody[step % romanticMelody.length];
+            // Mainkan lembut sekali
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(note, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.2);
+            } catch(e) {}
+            
+            musicInterval = setTimeout(() => {
+                playMelodyStep(step + 1);
+            }, 400); // tempo lambat manis
+        }
+
+        function toggleMusic() {
+            initAudio();
+            const icon = document.getElementById('musicIcon');
+            const btn = document.getElementById('musicBtn');
+            
+            if (isMusicPlaying) {
+                isMusicPlaying = false;
+                clearTimeout(musicInterval);
+                icon.className = 'fas fa-volume-mute';
+                btn.classList.remove('bg-pink-100');
+            } else {
+                isMusicPlaying = true;
+                icon.className = 'fas fa-music animate-bounce';
+                btn.classList.add('bg-pink-100');
+                playMelodyStep(0);
+            }
+        }
+    </script>
+
+    <!-- CORE GAMEPLAY LOGIC SCRIPT -->
+    <script>
+        // State Game Global
+        let currentScreen = 'screen-start';
+        
+        // Canvas Efek Hujan Kelopak Mawar
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * canvas.height; // Mulai menyebar di awal
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = -20;
+                this.size = Math.random() * 8 + 6;
+                this.speedY = Math.random() * 1.5 + 0.8;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.angle = Math.random() * 360;
+                this.spin = Math.random() * 2 - 1;
+                // Pilih warna kelopak mawar pink/merah
+                const colors = ['#ff8fab', '#ffb3c1', '#ffc2d1', '#ffe5ec', '#ff4d6d'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.type = Math.random() > 0.4 ? 'petal' : 'heart';
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.y / 30) * 0.5; // Efek melayang ditiup angin
+                this.angle += this.spin;
+                if (this.y > canvas.height + 20) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.angle * Math.PI) / 180);
+                ctx.fillStyle = this.color;
+                
+                if (this.type === 'heart') {
+                    // Gambar Love Kecil
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(-this.size/2, -this.size/2, -this.size, 0, 0, this.size);
+                    ctx.bezierCurveTo(this.size, 0, this.size/2, -this.size/2, 0, 0);
+                    ctx.fill();
+                } else {
+                    // Gambar Kelopak Bunga Oval Manis
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, this.size, this.size / 1.5, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        // Inisialisasi Kelopak Bunga
+        for (let i = 0; i < 40; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Fungsi Transisi Screen
+        function showScreen(screenId) {
+            document.getElementById(currentScreen).classList.add('hidden');
+            const target = document.getElementById(screenId);
+            target.classList.remove('hidden');
+            
+            // Trigger transisi estetik
+            if (screenId === 'screen-reward') {
+                setTimeout(() => {
+                    target.classList.remove('scale-95', 'opacity-0');
+                    target.classList.add('scale-100', 'opacity-100');
+                }, 50);
+            }
+            
+            currentScreen = screenId;
+        }
+
+        // Custom Modal Notifikasi untuk mempermudah gameplay tanpa alert()
+        function showModal(emoji, title, text, btnText, callback) {
+            const modal = document.getElementById('custom-modal');
+            const modalBox = modal.querySelector('.transform');
+            
+            document.getElementById('modal-emoji').innerText = emoji;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerText = text;
+            
+            const btn = document.getElementById('modal-btn');
+            btn.innerText = btnText;
+            
+            // Reset listener lama
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+            
+            newBtn.addEventListener('click', () => {
+                modal.classList.add('opacity-0');
+                modalBox.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    if (callback) callback();
+                }, 300);
+            });
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalBox.classList.remove('scale-95');
+            }, 50);
+        }
+
+        // Start Game Action
+        function startGame() {
+            // Auto-play musik pertama kali jika user memberi interaksi
+            if (!isMusicPlaying) {
+                toggleMusic();
+            }
+            showScreen('screen-game1');
+            initGame1();
+        }
+
+        /* =========================================================
+           LEVEL 1: COMPLIMENT POPPER (PECAHKAN BALON CINTA)
+           ========================================================= */
+        let g1Score = 0;
+        let g1Active = false;
+        let g1Interval = null;
+        const g1Compliments = [
+            "Dilaa cantik banget hari ini! 💖",
+            "Gemesnya Dilaa itu candu tahu nggak? 🥰",
+            "Makasih ya sayang udah selalu sabar menghadapi Guntur 🥺",
+            "Pelukan kamu adalah tempat ternyaman di dunia! 🤗",
+            "Dilaa adalah bagian terbaik dari hari-hari Guntur ✨",
+            "Senyum manis Dilaa bikin duniaku langsung cerah! ☀️",
+            "I love you more than yesterday, sayang! 💕"
+        ];
+
+        function initGame1() {
+            g1Score = 0;
+            g1Active = true;
+            document.getElementById('g1-score').innerText = g1Score;
+            document.getElementById('g1-message').innerText = "Pecahkan balon untuk melihat isi pesanku...";
+            document.getElementById('balloon-area').innerHTML = `
+                <!-- Watermark tipis di dalam area gameplay -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 select-none">
+                    <span class="text-2xl font-bold tracking-widest text-pink-500 font-romantis">Guntur For Dilaa</span>
+                </div>
+            `;
+            
+            // Spawn balon secara konstan
+            g1Interval = setInterval(spawnBalloon, 1000);
+        }
+
+        function spawnBalloon() {
+            if (!g1Active) return;
+            const area = document.getElementById('balloon-area');
+            const balloon = document.createElement('div');
+            
+            const isBomb = Math.random() < 0.25; // 25% kemungkinan muncul bom yang mengurangi nilai
+            const left = Math.random() * 80 + 5; // Jarak horizontal acak
+            
+            balloon.className = "absolute bottom-[-60px] cursor-pointer select-none transition-transform duration-75 flex flex-col items-center z-20";
+            balloon.style.left = left + "%";
+            
+            // Tampilan balon / item
+            if (isBomb) {
+                balloon.innerHTML = `
+                    <div class="text-3xl filter drop-shadow">💣</div>
+                    <div class="w-[2px] h-6 bg-slate-500"></div>
+                `;
+                balloon.dataset.type = "bomb";
+            } else {
+                const colors = ['text-pink-400', 'text-rose-400', 'text-pink-500', 'text-rose-500'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                balloon.innerHTML = `
+                    <div class="text-4xl ${randomColor} filter drop-shadow animate-pulse">❤️</div>
+                    <div class="w-[2px] h-6 bg-pink-300"></div>
+                `;
+                balloon.dataset.type = "love";
+            }
+
+            area.appendChild(balloon);
+
+            // Gerakan ke atas
+            let bottomPos = -60;
+            const speed = Math.random() * 1.5 + 1.2;
+            
+            function animateUp() {
+                if (!g1Active || !balloon.parentNode) return;
+                bottomPos += speed;
+                balloon.style.bottom = bottomPos + "px";
+                
+                if (bottomPos > 340) {
+                    balloon.remove();
+                } else {
+                    requestAnimationFrame(animateUp);
+                }
+            }
+            requestAnimationFrame(animateUp);
+
+            // Event saat Balon Diklik / Ditap
+            balloon.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                popBalloon(balloon);
+            });
+            balloon.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                popBalloon(balloon);
+            });
+        }
+
+        function popBalloon(balloon) {
+            if (!g1Active) return;
+            
+            // Animasi pecah ringkas
+            balloon.style.transform = "scale(1.4)";
+            balloon.style.opacity = "0";
+            
+            setTimeout(() => {
+                balloon.remove();
+            }, 80);
+
+            if (balloon.dataset.type === "love") {
+                soundPop();
+                g1Score++;
+                document.getElementById('g1-score').innerText = g1Score;
+                
+                // Ganti tulisan romantis acak
+                const randomMsg = g1Compliments[Math.floor(Math.random() * g1Compliments.length)];
+                document.getElementById('g1-message').innerText = `"${randomMsg}"`;
+
+                // Cek apakah menang Level 1
+                if (g1Score >= 5) {
+                    g1Active = false;
+                    clearInterval(g1Interval);
+                    soundLevelUp();
+                    showModal("🎉🎈", "Luar Biasa Dilaa!", "Balon cinta berhasil dipecahkan! Semua pesan manis terkumpul. Siap ke level berikutnya?", "Lanjut Level 2", () => {
+                        showScreen('screen-game2');
+                        initGame2();
+                    });
+                }
+            } else {
+                soundError();
+                // Mengurangi poin jika pecah bom
+                g1Score = Math.max(0, g1Score - 1);
+                document.getElementById('g1-score').innerText = g1Score;
+                document.getElementById('g1-message').innerText = `"Aduh sayang, jangan sentuh bom! Guntur nggak mau kamu terluka 🥺"`;
+            }
+        }
+
+        /* =========================================================
+           LEVEL 2: MEMORY MATCH (KARTU MEMORI KASIH)
+           ========================================================= */
+        let g2Cards = [];
+        let g2Flipped = [];
+        let g2Matches = 0;
+        let g2Lock = false;
+
+        // Pasangan Konten Kartu: Emoji & Makna Singkat
+        const g2Items = [
+            { id: 1, emoji: "🌹", label: "Mawar Guntur" },
+            { id: 2, emoji: "🍿", label: "Nonton Bareng" },
+            { id: 3, emoji: "✈️", label: "Liburan Berdua" },
+            { id: 4, emoji: "🧸", label: "Peluk Dilaa" },
+            { id: 5, emoji: "🍦", label: "Es Krim Manis" },
+            { id: 6, emoji: "👩‍❤️‍👨", label: "Kita Selamanya" }
+        ];
+
+        function initGame2() {
+            g2Matches = 0;
+            g2Flipped = [];
+            g2Lock = false;
+            document.getElementById('g2-match').innerText = g2Matches;
+            
+            // Gandakan item untuk dicocokkan
+            const deck = [...g2Items, ...g2Items];
+            // Acak kartu secara acak (Fisher-Yates)
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+
+            const grid = document.getElementById('memory-grid');
+            grid.innerHTML = '';
+
+            deck.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "aspect-square bg-pink-100 rounded-xl border-2 border-pink-300 flex items-center justify-center cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm relative";
+                card.dataset.id = item.id;
+                card.dataset.index = index;
+                
+                // Bagian Depan & Belakang Kartu
+                card.innerHTML = `
+                    <div class="card-back absolute inset-0 bg-gradient-to-br from-pink-400 to-rose-400 rounded-lg flex items-center justify-center text-white text-2xl font-bold">💖</div>
+                    <div class="card-front hidden flex flex-col items-center justify-center p-1">
+                        <span class="text-3xl">${item.emoji}</span>
+                        <span class="text-[9px] font-bold text-pink-600 mt-1 leading-none text-center">${item.label}</span>
+                    </div>
+                `;
+
+                card.addEventListener('click', () => flipCard(card));
+                grid.appendChild(card);
+            });
+        }
+
+        function flipCard(card) {
+            if (g2Lock) return;
+            const index = card.dataset.index;
+            
+            // Hindari klik kartu yang sudah terbuka atau dicocokkan
+            if (g2Flipped.some(c => c.dataset.index === index) || card.classList.contains('matched')) {
+                return;
+            }
+
+            soundFlip();
+            
+            // Animasi Buka Kartu
+            card.querySelector('.card-back').classList.add('hidden');
+            card.querySelector('.card-front').classList.remove('hidden');
+            card.classList.add('bg-white');
+
+            g2Flipped.push(card);
+
+            if (g2Flipped.length === 2) {
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            g2Lock = true;
+            const [card1, card2] = g2Flipped;
+
+            if (card1.dataset.id === card2.dataset.id) {
+                // MATCH BERHASIL
+                setTimeout(() => {
+                    soundMatch();
+                    card1.classList.add('matched', 'border-emerald-300', 'bg-emerald-50');
+                    card2.classList.add('matched', 'border-emerald-300', 'bg-emerald-50');
+                    
+                    g2Matches++;
+                    document.getElementById('g2-match').innerText = g2Matches;
+                    g2Flipped = [];
+                    g2Lock = false;
+
+                    // Cek Apakah Menang Level 2
+                    if (g2Matches === 6) {
+                        setTimeout(() => {
+                            soundLevelUp();
+                            showModal("🧩💝", "Ingatan Hebat!", "Semua kartu memori cinta berhasil dicocokkan dengan sempurna! Satu level terakhir lagi sayang!", "Lanjut Level 3", () => {
+                                showScreen('screen-game3');
+                                initGame3();
+                            });
+                        }, 500);
+                    }
+                }, 400);
+            } else {
+                // MATCH GAGAL (Tutup kembali kartu)
+                setTimeout(() => {
+                    card1.querySelector('.card-back').classList.remove('hidden');
+                    card1.querySelector('.card-front').classList.add('hidden');
+                    card1.classList.remove('bg-white');
+
+                    card2.querySelector('.card-back').classList.remove('hidden');
+                    card2.querySelector('.card-front').classList.add('hidden');
+                    card2.classList.remove('bg-white');
+
+                    g2Flipped = [];
+                    g2Lock = false;
+                }, 1000);
+            }
+        }
+
+        /* =========================================================
+           LEVEL 3: HEART CATCHER (TANGKAP HATI BERJATUHAN)
+           ========================================================= */
+        let g3Score = 0;
+        let g3Active = false;
+        let g3Interval = null;
+        let basketX = 50; // Posisi horizontal keranjang dalam persen (%)
+
+        function initGame3() {
+            g3Score = 0;
+            g3Active = true;
+            basketX = 50;
+            document.getElementById('g3-score').innerText = g3Score;
+            updateBasketPosition();
+
+            // Clear item lama berjatuhan
+            const area = document.getElementById('catcher-area');
+            const items = area.querySelectorAll('.falling-heart');
+            items.forEach(it => it.remove());
+
+            // Kontrol Gerakan Keranjang dengan Klik/Tap
+            const ctrlLeft = document.getElementById('control-left');
+            const ctrlRight = document.getElementById('control-right');
+
+            ctrlLeft.addEventListener('touchstart', (e) => { e.preventDefault(); moveBasket('left'); });
+            ctrlRight.addEventListener('touchstart', (e) => { e.preventDefault(); moveBasket('right'); });
+            ctrlLeft.addEventListener('mousedown', () => moveBasket('left'));
+            ctrlRight.addEventListener('mousedown', () => moveBasket('right'));
+
+            // Keyboard support jika dimainkan di Laptop
+            document.removeEventListener('keydown', handleKeyboardInput);
+            document.addEventListener('keydown', handleKeyboardInput);
+
+            // Spawn Hati jatuh konstan
+            g3Interval = setInterval(spawnFallingHeart, 900);
+        }
+
+        function handleKeyboardInput(e) {
+            if (!g3Active) return;
+            if (e.key === "ArrowLeft") moveBasket('left');
+            if (e.key === "ArrowRight") moveBasket('right');
+        }
+
+        function moveBasket(dir) {
+            if (dir === 'left') {
+                basketX = Math.max(8, basketX - 12);
+            } else {
+                basketX = Math.min(92, basketX + 12);
+            }
+            updateBasketPosition();
+        }
+
+        function updateBasketPosition() {
+            const basket = document.getElementById('basket');
+            basket.style.left = basketX + "%";
+        }
+
+        // Touch drag support untuk area tangkap agar sangat nyaman di handphone
+        const catcherArea = document.getElementById('catcher-area');
+        catcherArea.addEventListener('touchmove', (e) => {
+            if (!g3Active) return;
+            e.preventDefault();
+            const rect = catcherArea.getBoundingClientRect();
+            const touchX = e.touches[0].clientX - rect.left;
+            let percent = (touchX / rect.width) * 100;
+            basketX = Math.max(8, Math.min(92, percent));
+            updateBasketPosition();
+        }, { passive: false });
+
+        catcherArea.addEventListener('mousemove', (e) => {
+            if (!g3Active) return;
+            const rect = catcherArea.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            let percent = (mouseX / rect.width) * 100;
+            basketX = Math.max(8, Math.min(92, percent));
+            updateBasketPosition();
+        });
+
+        function spawnFallingHeart() {
+            if (!g3Active) return;
+            const area = document.getElementById('catcher-area');
+            const heart = document.createElement('div');
+            
+            const isGold = Math.random() < 0.15; // Hati emas bernilai lebih tinggi
+            const left = Math.random() * 85 + 7;
+            
+            heart.className = "absolute top-[-30px] select-none text-2xl transition-all duration-75 falling-heart z-20";
+            heart.style.left = left + "%";
+            
+            if (isGold) {
+                heart.innerText = "💛";
+                heart.dataset.type = "gold";
+            } else {
+                heart.innerText = "❤️";
+                heart.dataset.type = "heart";
+            }
+
+            area.appendChild(heart);
+
+            let topPos = -30;
+            const speed = Math.random() * 2 + 1.8;
+
+            function animateFall() {
+                if (!g3Active || !heart.parentNode) return;
+                topPos += speed;
+                heart.style.top = topPos + "px";
+
+                // Deteksi Tabrakan / Penangkapan (Keranjang ada di bagian bawah y=260-290px)
+                const areaHeight = area.offsetHeight;
+                const basketElem = document.getElementById('basket');
+                
+                // Cari posisi horizontal real-time
+                const heartLeftPercent = parseFloat(heart.style.left);
+                const basketLeftPercent = basketX;
+
+                // Cek jika mencapai tinggi keranjang
+                if (topPos >= (areaHeight - 50) && topPos <= (areaHeight - 20)) {
+                    // Deteksi irisan koordinat X persen
+                    if (Math.abs(heartLeftPercent - basketLeftPercent) < 14) {
+                        // Tergantung jenis hati
+                        if (heart.dataset.type === "gold") {
+                            g3Score += 3;
+                            soundCatch();
+                            // Efek kilau kecil saat kena keranjang
+                            createSmallExplosion(basketLeftPercent);
+                        } else {
+                            g3Score += 1;
+                            soundCatch();
+                        }
+                        
+                        document.getElementById('g3-score').innerText = g3Score;
+                        heart.remove();
+
+                        // Cek Kemenangan Akhir Gamelist
+                        if (g3Score >= 15) {
+                            endGame();
+                        }
+                        return;
+                    }
+                }
+
+                // Hapus jika jatuh lewat batas bawah
+                if (topPos > areaHeight) {
+                    heart.remove();
+                } else {
+                    requestAnimationFrame(animateFall);
+                }
+            }
+            requestAnimationFrame(animateFall);
+        }
+
+        // Efek ledakan partikel berkilau saat menangkap hati emas
+        function createSmallExplosion(xPercent) {
+            const area = document.getElementById('catcher-area');
+            for (let i = 0; i < 5; i++) {
+                const spark = document.createElement('div');
+                spark.innerText = "✨";
+                spark.className = "absolute bottom-12 text-xs transition-all duration-300 pointer-events-none";
+                spark.style.left = xPercent + (Math.random() * 10 - 5) + "%";
+                area.appendChild(spark);
+                
+                let y = 48;
+                let x = parseFloat(spark.style.left);
+                const speedY = Math.random() * 2 + 1;
+                const speedX = Math.random() * 2 - 1;
+
+                function animateSpark() {
+                    y += speedY;
+                    x += speedX;
+                    spark.style.bottom = y + "px";
+                    spark.style.left = x + "%";
+                    spark.style.opacity = (spark.style.opacity || 1) - 0.05;
+                    if (parseFloat(spark.style.opacity) <= 0) {
+                        spark.remove();
+                    } else {
+                        requestAnimationFrame(animateSpark);
+                    }
+                }
+                requestAnimationFrame(animateSpark);
+            }
+        }
+
+        function endGame() {
+            g3Active = false;
+            clearInterval(g3Interval);
+            soundLevelUp();
+            
+            // Tambahkan partikel penutup yang melimpah
+            for(let i=0; i<100; i++) {
+                particles.push(new Particle());
+            }
+
+            showModal("🎁💑❤️", "SELAMAT SAYANGKU!", "Dilaa berhasil menyelesaikan semua game romantis ini! Selamat membuka kotak hadiah istimewa dari Guntur...", "Buka Hadiah Spesial 💌", () => {
+                showScreen('screen-reward');
+            });
+        }
+
+        /* =========================================================
+           TAB MANAGEMENT & HADIAH (SURAT & KUPON)
+           ========================================================= */
+        function switchTab(tabId) {
+            document.getElementById('tab-surat').classList.add('hidden');
+            document.getElementById('tab-kupon').classList.add('hidden');
+            document.getElementById('btn-tab-surat').className = "flex-1 py-2 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-pink-500 focus:outline-none";
+            document.getElementById('btn-tab-kupon').className = "flex-1 py-2 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-pink-500 focus:outline-none";
+
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).className = "flex-1 py-2 text-sm font-bold border-b-2 border-pink-500 text-pink-600 focus:outline-none";
+            soundFlip();
+        }
+
+        function restartGame() {
+            showScreen('screen-start');
+        }
+    </script>
+</body>
+</html>
